@@ -13,24 +13,24 @@
     <div class="container">
         <div class="left">
             
-        <form action="#" method="POST">
+        <form action="process.php" method="POST">
             <label>Full Name</label>
             <input type="text" id="fullname" name="fullname" required placeholder="Enter your full name">
 
             <label>Username : </label>
-            <input type="text" id="uName" placeholder="rahman222" minlength="6">
+            <input type="text" id="uName" name="name" placeholder="sakib23" minlength="6">
             <span id="userMsg" class="error"></span>
              
             <label>Email : </label>
-            <input type="email" id="uEmail" placeholder="abc1233@gmail.com" minlength="8">
+            <input type="email" id="uEmail" name="email" placeholder="sakib34@gmail.com" minlength="8">
             <span id="emailMsg" class="error"></span>
 
             <label>Password : </label>
-            <input type="password" id="uPass" placeholder="*****" minlength="8">
+            <input type="password" id="uPass" placeholder="********" minlength="8">
             <span id="passMsg" class="error"></span>
    
             <label>Date of Birth : </label>
-            <input type="date" id="uDOB" placeholder="DD/MM/YYYY">
+            <input type="date" id="uDOB" name ="dob" placeholder="DD/MM/YYYY">
             <span id="dobMsg" class="error"></span>
 
             <label>Country</label>
@@ -245,19 +245,19 @@
             <label>Gender</label>
             <div class="gender">
                 <label >
-                    <input type="radio" id="uMale" name="gender" value="male" > Male
+                    <input type="radio" id="uMale" name="gender" value="Male" > Male
 
-                    <input type="radio" id="uFemale" name="gender" value="female" > Female
+                    <input type="radio" id="uFemale" name="gender" value="Female" > Female
                 </label>
                 <span id="genderMsg" class="error"></span>
             </div>
             <br>
 
             <label>Color of the air</label>
-            <input type="color" id="uColor">
+            <input type="color" id="uColor" name ="color">
 
             <label>Share Your Thoughts</label>
-            <textarea id="message" name="message" rows="4" placeholder="Write your Thoughts"></textarea>
+            <textarea id="message" name="msdg" rows="4" placeholder="Write your Thoughts"></textarea>
 
             <label>
                 <input type="checkbox" id="termsCheck">
@@ -269,114 +269,53 @@
         </form>
         </div>
         <div class="right">
-            <div class="top">Box2</div>
-            <div class="bottom">Box3</div>
+            <div class="top">
+                <form action="#" method="POST" class="login-form" id="loginForm">
+                    <h3>Login</h3>
+                    <input type="text" id="lusername" name="loginUsername" required placeholder="Username">
+                    <input type="password" id="lpassword" name="loginPassword" required placeholder="Password">
+                    <label for="rememberMe">
+                        <input type="checkbox" id="rememberMe" name="rememberMe"> Remember Me
+                    </label>
+                    <input type="submit" value="LogIn" class="login-btn">
+
+                </form>
+            </div>
+            
+            <div class="bottom">
+                <h4>Air Quality In Different Cities</h4>
+                <br>
+                <br>
+                <div class="overlay">
+                    Please log in to see the information.
+                </div>
+                
+                <br>
+                <br>                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Air Quality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const countries = ['USA', 'UK', 'Canada', 'Australia', 'Bangladesh', 'India'];
-            const countrySelect = document.getElementById('uCountry');
-            
-            countries.forEach(country => {
-                const option = document.createElement('option');
-                option.value = country;
-                option.textContent = country;
-                countrySelect.appendChild(option);
-            });
-        });
 
-        function validateForm() {
-            let isValid = true;
-    
-            
-            let username = document.getElementById("uName").value.trim();
-            let userMsg = document.getElementById("userMsg");
-            if (username === "" || username.length < 6) {
-                userMsg.innerHTML = "Username must be at least 6 characters.";
-                isValid = false;
-            } else if (!/^[a-zA-Z0-9]+$/.test(username)) {
-                userMsg.innerHTML = "Username must be alphanumeric.";
-                isValid = false;
-            } else {
-                userMsg.innerHTML = "";
-            }
-    
-            
-            let email = document.getElementById("uEmail").value.trim();
-            let emailMsg = document.getElementById("emailMsg");
-            if (email === "" || email.length < 8) {
-                emailMsg.innerHTML = "Email must be at least 8 characters.";
-                isValid = false;
-            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-                emailMsg.innerHTML = "Invalid email format.";
-                isValid = false;
-            } else {
-                emailMsg.innerHTML = "";
-            }
-    
-            
-            let password = document.getElementById("uPass").value;
-            let passMsg = document.getElementById("passMsg");
-            if (password.length < 8) {
-                passMsg.innerHTML = "Password must be at least 8 characters.";
-                isValid = false;
-            } else {
-                passMsg.innerHTML = "";
-            }
-            
-            
-            let dob = document.getElementById("uDOB").value;
-            let dobMsg = document.getElementById("dobMsg");
-            if (!dob) {
-                dobMsg.innerHTML = "Please select your date of birth.";
-                isValid = false;
-            } else {
-                dobMsg.innerHTML = "";
-            }
-            
-           
-            let country = document.getElementById("uCountry").value;
-            let countryMsg = document.getElementById("countryMsg");
-            if (!country) {
-                countryMsg.innerHTML = "Please select a country.";
-                isValid = false;
-            } else {
-                countryMsg.innerHTML = "";
-            }
-            
-           
-            let gender = document.querySelector('input[name="gender"]:checked');
-            let genderMsg = document.getElementById("genderMsg");
-            if (!gender) {
-                genderMsg.innerHTML = "Please select your gender.";
-                isValid = false;
-            } else {
-                genderMsg.innerHTML = "";
-            }
-            
-            
-            let termsChecked = document.getElementById("termsCheck").checked;
-            let termsMsg = document.getElementById("termsMsg");
-            if (!termsChecked) {
-                termsMsg.innerHTML = "You must accept the terms and conditions.";
-                isValid = false;
-            } else {
-                termsMsg.innerHTML = "";
-            }
-    
-            if (isValid) {
-                let color = document.getElementById("uColor").value;
-                document.body.style.backgroundColor = color;
-                
-                
-                alert("Form submitted successfully!");
-                return true;
-            } else {
-                return false; 
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
