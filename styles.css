@@ -1,0 +1,29 @@
+
+        h2 {
+            color: #080808;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .city-form-wrapper {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh; /* Full screen height */
+           background-color: #f0e4df;
+        }
+
+        form {
+          background-color: #ebad5d;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .city-checkboxes {
+          display: grid;
+          grid-template-columns: repeat(2, auto); /* 2 columns */
+          gap: 10px 40px;
+        }

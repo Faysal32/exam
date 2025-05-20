@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,6 @@
     <?php
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-       echo "<h3>Form Data Submitted</h3>";
        echo "<table>";
        echo "<tr><th>Section</th><th>Values</th></tr>";
        echo "<tr><td>Full Name</td><td>" . $_POST['fullname']."</td></tr>";
@@ -26,7 +26,7 @@
     echo "</table>";
     ?>
         <div class="btn-container">
-            <button class="btn" >Back</button>
+            <button class="btn" id="backbtn">Cancel</button>
             <button class="btn">Submit</button>
         </div>
     <?php
@@ -36,5 +36,6 @@
     }
        ?>
 </div>
+<script>script01.js</script>
 </body>
 </html>

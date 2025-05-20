@@ -107,20 +107,7 @@ else{
 }
 
 }
-
+// DO NOT block login form submit
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const Nuser = document.getElementById('lusername').value;
-    const Npass = document.getElementById('lpassword').value;
-
-    // Replace with the valid username and password
-    const validUsername = 'username';
-    const validPassword = '12345678';
-
-    if (Nuser === validUsername && Npass === validPassword) {
-        document.querySelector('.overlay').style.display = 'none';
-    } else {
-        alert('Invalid username or password');
-    }
+    // event.preventDefault(); // <- remove or comment this out
 });
