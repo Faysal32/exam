@@ -1,8 +1,11 @@
 <?php
-// Check if the form has been submitted (only run when the submit button is pressed)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
     // Database connection
-    $conn = new mysqli("localhost", "root", "", "info");
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "info";
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
     if (!$conn->connect_error) {
         // Collect POST data
@@ -16,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
         $stmt->close();
         $conn->close();
 
-        // Output success marker to trigger redirect
         echo "<script>
             localStorage.setItem('formSubmitted', '1');
         </script>";
