@@ -10,11 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
     if (!$conn->connect_error) {
         // Collect POST data
         $username = $_POST['name'];
-        $password = password_hash($_POST['Upass'], PASSWORD_DEFAULT);
+        $email = $_POST['email'];
+        $password = $_POST['Upass'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert into the database
-        $stmt = $conn->prepare("INSERT INTO user (username, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $conn->prepare("INSERT INTO user (Name, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $hashedPassword);
         $stmt->execute();
         $stmt->close();
         $conn->close();

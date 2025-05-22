@@ -2,28 +2,24 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $email = $_POST['loginEmail'] ?? '';
+    $password = $_POST['loginPassword'] ?? '';
 
-    $conn = new mysqli("localhost", "root", "", "info");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    $conn = mysqli_connect("localhost", "root", "", "info");
+    if (!$conn) {
+        die("Connection failed.");
     }
 
-    $username = strtolower(trim($username));
+    $email = strtolower(trim($email));
+    $query = "SELECT UserID, Name, Password FROM user WHERE LOWER(Email) = '$email'";
+    $result = mysqli_query($conn, $query);
 
-    $stmt = $conn->prepare("SELECT Id, Username, Password FROM user WHERE LOWER(Username) = '$username'");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
+    if (mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['Password'])) {
-            session_regenerate_id(true); // Prevent session fixation
-            $_SESSION['user_id'] = $row['Id'];
-            $_SESSION['user_name'] = $row['Username'];
+            $_SESSION['user_id'] = $row['UserID'];
+            $_SESSION['user_name'] = $row['Name'];
+            $_SESSION['user_email'] = $email;
             $_SESSION['logged_in'] = true;
 
             header("Location: request.php");
@@ -32,10 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "Wrong password.";
         }
     } else {
-        echo "Username not found.";
+        echo "Email not found.";
     }
 
-    $stmt->close();
-    $conn->close();
+    mysqli_close($conn);
 }
 ?>

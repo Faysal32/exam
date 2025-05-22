@@ -270,15 +270,22 @@
         </div>
         <div class="right">
             <div class="top">
-               <form action="login.php" method="POST" class="login-form" id="loginForm">
-                  <h3>Login</h3>
-                  <input type="text" id="lusername" name="username" required placeholder="Username">
-                  <input type="password" id="lpassword" name="password" required placeholder="Password">
-                  <label for="rememberMe">
-                    <input type="checkbox" id="rememberMe" name="rememberMe"> Remember Me
-                  </label>
-                  <input type="submit" value="LogIn" class="login-btn">
-               </form>
+                <form id="loginForm" action="login.php" method="post">
+                    <input type="email" name="loginEmail" id="loginEmail" required placeholder="Email"><br>
+                    <input type="password" name="loginPassword" id="loginPassword" required placeholder="Password"><br>
+                    <label for="rememberMe">
+                        <input type="checkbox" name="rememberMe" id="rememberMe"> Remember Me
+                    </label>
+                    
+
+                    <button type="button" name="login" id="login">Login</button>
+                </form>
+
+                <script>
+                    document.getElementById("login").addEventListener("click", function () {
+                    document.getElementById("loginForm").submit();
+                    });
+                </script>
 
       
             </div>

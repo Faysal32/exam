@@ -1,10 +1,4 @@
-<?php
-session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cities'])) {
-    $_SESSION['selected_cities'] = $_POST['cities'];
-}
-?>
 
 <!DOCTYPE html>
 <html>
