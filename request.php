@@ -1,11 +1,8 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['loginUsername'], $_POST['loginPassword'])) {
-    $username = $_POST['loginUsername'];
-    $password = $_POST['loginPassword'];
+session_start();
 
-    $validUsername = "admin";
-    $validPassword = "admin123";
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cities'])) {
+    $_SESSION['selected_cities'] = $_POST['cities'];
 }
 ?>
 
@@ -27,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['loginUsername'], $_PO
 </head>
 
 <body>
-    
+
 <div class="city-form-wrapper">
     <form action="ShowAqi.php" method="post" onsubmit="return validateForm()">
         <h2>Select at most 10 Cities</h2>
         <div class="city-checkboxes">
-            
+
             <label><input type='checkbox' name='cities[]' value='Dhaka'>Dhaka</label>
             <label><input type='checkbox' name='cities[]' value='Rajshahi'>Rajshahi</label>
             <label><input type='checkbox' name='cities[]' value='New Delhi'>New Delhi</label>
@@ -57,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['loginUsername'], $_PO
         <br>
         <input type="submit" value="Submit">
     </form>
-</div>
 
+</div>
 </body>
 </html>

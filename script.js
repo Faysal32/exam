@@ -107,7 +107,7 @@ else{
 }
 
 }
-// DO NOT block login form submit
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    // event.preventDefault(); // <- remove or comment this out
+
 });
