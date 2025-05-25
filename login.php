@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['Password'])) {
+        if ($password === $row['Password']) {
             $_SESSION['user_id'] = $row['Id'];
             $_SESSION['user_name'] = $username;
             $_SESSION['logged_in'] = true;

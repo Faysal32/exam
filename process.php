@@ -12,11 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
         $username = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['Upass'];
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        #$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $cookieName = "bgcol_" . md5(strtolower($username));
+                setcookie($cookieName, $color, [
+                    'expires' => time() + (86400 * 30),
+                    'path' => '/',
+                    'secure' => isset($_SERVER['HTTPS']),
+                    'httponly' => true,
+                    'samesite' => 'Strict'
+                ]);
 
         // Insert into the database
         $stmt = $conn->prepare("INSERT INTO user (Username, Password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $hashedPassword);
+        $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
         $stmt->close();
         $conn->close();

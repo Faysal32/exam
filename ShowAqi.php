@@ -26,9 +26,14 @@ if ($conn->connect_error) {
 $selected_cities = $_SESSION['selected_cities'];
 $placeholders = implode(',', array_fill(0, count($selected_cities), '?'));
 
+
+
 // Fetch AQI data
 $sql = "SELECT city, aqi FROM AQI WHERE city IN ($placeholders)";
 $stmt = $conn->prepare($sql);
+
+$cookieName = "bgcol_" . md5(strtolower($_SESSION['user_name'] ?? ''));
+$bgcolor = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : '#ffffff';
 
 $types = str_repeat('s', count($selected_cities));
 $stmt->bind_param($types, ...$selected_cities);
