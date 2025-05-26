@@ -1,4 +1,9 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bgcolor'])) {
+    $bgColor = $_POST['bgcolor'];
+    // Set cookie for 30 days
+    setcookie("user_bgcolor", $bgColor, time() + (86400 * 30), "/");
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
     // Database connection
     $servername = "localhost";
@@ -13,15 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
         $email = $_POST['email'];
         $password = $_POST['Upass'];
         #$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $cookieName = "bgcol_" . md5(strtolower($username));
-                setcookie($cookieName, $color, [
-                    'expires' => time() + (86400 * 30),
-                    'path' => '/',
-                    'secure' => isset($_SERVER['HTTPS']),
-                    'httponly' => true,
-                    'samesite' => 'Strict'
-                ]);
-
+        
         // Insert into the database
         $stmt = $conn->prepare("INSERT INTO user (Username, Password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $password);
@@ -59,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
        echo "<tr><td>Date of Birth</td><td>".$_POST['dob'] . "</td></tr>";
        echo "<tr><td>Country</td><td>".$_POST['country'] . "</td></tr>";
        echo "<tr><td>Gender</td><td>".$_POST['gender'] . "</td></tr>";
-       echo "<tr><td>Color</td><td>".$_POST['color'] . "</td></tr>";
+       echo "<tr><td>Color</td><td>".$_POST['bgcolor'] . "</td></tr>";
        echo "<tr><td>Thought</td><td>".$_POST['msdg'] . "</td></tr>";
 
     echo "</table>";
@@ -74,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
                 <input type="hidden" name="dob" value="<?php echo $_POST['dob']; ?>">
                 <input type="hidden" name="country" value="<?php echo $_POST['country']; ?>">
                 <input type="hidden" name="gender" value="<?php echo $_POST['gender']; ?>">
-                <input type="hidden" name="color" value="<?php echo $_POST['color']; ?>">
+                <input type="hidden" name="color" value="<?php echo $_POST['bgcolor']; ?>">
                 <input type="hidden" name="msdg" value="<?php echo $_POST['msdg']; ?>">
 
                 <button type="submit" name="submitData" class="btn">Submit</button>

@@ -1,4 +1,9 @@
 <?php
+// Apply background color from cookie if set
+$bgColor = isset($_COOKIE['user_bgcolor']) ? $_COOKIE['user_bgcolor'] : '#ffffff';
+echo "<style>body { background-color: $bgColor; }</style>";
+?>
+<?php
 session_start();
 
 // ✅ If form submitted directly to this page
@@ -32,8 +37,6 @@ $placeholders = implode(',', array_fill(0, count($selected_cities), '?'));
 $sql = "SELECT city, aqi FROM AQI WHERE city IN ($placeholders)";
 $stmt = $conn->prepare($sql);
 
-$cookieName = "bgcol_" . md5(strtolower($_SESSION['user_name'] ?? ''));
-$bgcolor = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : '#ffffff';
 
 $types = str_repeat('s', count($selected_cities));
 $stmt->bind_param($types, ...$selected_cities);
