@@ -3,6 +3,7 @@
 $bgColor = isset($_COOKIE['user_bgcolor']) ? $_COOKIE['user_bgcolor'] : '#ffffff';
 echo "<style>body { background-color: $bgColor; }</style>";
 ?>
+
 <?php
 session_start();
 
