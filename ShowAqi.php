@@ -1,18 +1,30 @@
 <?php
-// Apply background color from cookie if set
+// Apply background color from cookie
 $bgColor = isset($_COOKIE['user_bgcolor']) ? $_COOKIE['user_bgcolor'] : '#ffffff';
 echo "<style>body { background-color: $bgColor; }</style>";
 ?>
+<?php
+// Check if the logout button was pressed
+if (isset($_POST['logout'])) {
+    // Optional: destroy session if needed
+    // session_start();
+    // session_destroy();
+
+    header("Location: Layout02.html");
+    exit();
+}
+?>
+
 
 <?php
 session_start();
 
-// ✅ If form submitted directly to this page
+//session for cities
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cities'])) {
     $_SESSION['selected_cities'] = $_POST['cities'];
 }
 
-// ✅ Check session for selected cities
+// Check session for selected cities
 if (!isset($_SESSION['selected_cities']) || !is_array($_SESSION['selected_cities']) || count($_SESSION['selected_cities']) === 0) {
     echo "No cities selected.";
     exit;
@@ -22,7 +34,7 @@ if (!isset($_SESSION['selected_cities']) || !is_array($_SESSION['selected_cities
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "info";
+$dbname = "aqi";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -35,7 +47,7 @@ $placeholders = implode(',', array_fill(0, count($selected_cities), '?'));
 
 
 // Fetch AQI data
-$sql = "SELECT city, aqi FROM AQI WHERE city IN ($placeholders)";
+$sql = "SELECT city, aqi FROM info WHERE city IN ($placeholders)";
 $stmt = $conn->prepare($sql);
 
 
@@ -52,6 +64,13 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="styles3.css">
 </head>
 <body>
+<div class="logout-btn">
+    <form method="post">
+        <button type="submit" name="logout">
+            <span class="logout-icon">&#x1F6AA;</span> <!-- Door icon -->
+            Logout</button>
+    </form>
+</div>
 <div class="aqi-results">
     <h2>Air Quality Index for Selected Cities</h2>
     <?php if ($result && $result->num_rows > 0): ?>

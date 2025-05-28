@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST['loginUsername'] ?? '';
     $password = $_POST['loginPassword'] ?? '';
 
-    $conn = mysqli_connect("localhost", "root", "", "info");
+    $conn = mysqli_connect("localhost", "root", "", "aqi");
     if (!$conn) {
         die("Connection failed.");
     }

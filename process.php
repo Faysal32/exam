@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitData'])) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "info";
+    $dbname = "aqi";
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     if (!$conn->connect_error) {
